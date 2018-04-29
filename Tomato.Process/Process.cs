@@ -1,22 +1,34 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Tomato
 {
+    public struct ProcessProgressArgs
+    {
+        public int PercentageComplete { get; set; }
+    }
+
     public interface IProcessStep
     {
+        event EventHandler<ProcessProgressArgs> Progress;
+
         void Run();
+
+        void Cancel();
     }
 
     public interface IProcess
     {
         bool RotateToStartWhenDone { get; set; }
 
-        bool OnLastStep { get; set; }
+        bool OnLastStep();
 
         IProcessStep Current();
 
         void AddStep(IProcessStep processStep);
+
+        void Start();
 
         void Step();
     }
@@ -27,7 +39,12 @@ namespace Tomato
 
         public bool RotateToStartWhenDone { get; set; }
 
-        public bool OnLastStep { get; set; }
+        private IProcessStep current = null;
+
+        public bool OnLastStep()
+        {
+            return steps.Last() == current;
+        }
 
         public void AddStep(IProcessStep processStep)
         {
@@ -39,12 +56,28 @@ namespace Tomato
 
         public IProcessStep Current()
         {
-            throw new NotImplementedException();
+            return current;
         }
 
         public void Step()
         {
-            throw new NotImplementedException();
+            var index = steps.FindIndex((test) => current == test);
+            if (index == steps.Count - 1)
+            {
+                if (RotateToStartWhenDone)
+                {
+
+                }
+            }
+            else
+            {
+                current = steps[++index];
+            }
+        }
+
+        public void Start()
+        {
+            current = steps.First();
         }
     }
 }
