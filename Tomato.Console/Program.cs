@@ -12,6 +12,7 @@ namespace Tomato.CommandLine
     {
         static IPropertyRepository propertyStore = new PropertyRepository();
         static int previousPercentage = -1;
+        static string previousName = string.Empty;
 
         static void Main(string[] args)
         {
@@ -26,6 +27,11 @@ namespace Tomato.CommandLine
             var waitTimeStep = sender as WaitTimeStep;
             var Name = propertyStore.Get<string>(waitTimeStep.Id, "Name");
             var percentage = e.PercentageComplete;
+            if (previousName != Name)
+            {
+                Console.Beep();
+                previousName = Name;
+            }
             if (percentage != previousPercentage)
             {
                 previousPercentage = percentage;

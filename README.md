@@ -127,6 +127,24 @@ Following that is the Percentage complete and then the number of minutes remaini
 ### Tomato.Test
 - Lot's of event testing going on here
 
+## User Stories
+```
+As a user, I must be able to easily start the timer.
+- Command Line app
+
+As a user, I must be alerted when there is no more time left on the timer.
+- Beeps when timer status changes
+
+As a user, I may be able to view the remaining time of the timer.
+- Command line app constantly updates with remaining minutes
+
+As a user, I must be able to add an item to a todo list.
+- Command line app "add" verb
+
+As a user, I must be able to complete an item on a todo list.
+- Command line app "remove" verb
+```
+
 ## Summary
 I had fun. This is interesting.
 
