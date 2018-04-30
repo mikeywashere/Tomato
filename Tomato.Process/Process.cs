@@ -4,40 +4,13 @@ using System.Collections.Generic;
 
 namespace Tomato
 {
-    public struct ProcessProgressArgs
-    {
-        public int PercentageComplete { get; set; }
-    }
-
-    public interface IProcessStep
-    {
-        event EventHandler<ProcessProgressArgs> Progress;
-
-        void Run();
-
-        void Cancel();
-    }
-
-    public interface IProcess
-    {
-        bool RotateToStartWhenDone { get; set; }
-
-        bool OnLastStep();
-
-        IProcessStep Current();
-
-        void AddStep(IProcessStep processStep);
-
-        void Start();
-
-        void Step();
-    }
-
     public class Process : IProcess
     {
         private List<IProcessStep> steps = new List<IProcessStep>();
 
         public bool RotateToStartWhenDone { get; set; }
+
+        public bool StartNextStepAutomatically { get; set; }
 
         private IProcessStep current = null;
 
@@ -61,23 +34,43 @@ namespace Tomato
 
         public void Step()
         {
-            var index = steps.FindIndex((test) => current == test);
-            if (index == steps.Count - 1)
+            if (!OnLastStep())
             {
-                if (RotateToStartWhenDone)
-                {
+                var index = steps.FindIndex((test) => current == test);
+                current = steps[index + 1];
+                return;
+            }
 
-                }
-            }
-            else
+            if (RotateToStartWhenDone)
             {
-                current = steps[++index];
+                current = steps.First();
+                return;
             }
+
+            current = null;
         }
 
         public void Start()
         {
             current = steps.First();
+            Run();
+        }
+
+        public void Run()
+        {
+            while (current != null)
+            {
+                current?.Run();
+                if (!StartNextStepAutomatically)
+                    break;
+                Step();
+            }
+        }
+
+        public void Cancel()
+        {
+            steps.ForEach(step => step?.Cancel());
+            current = null;
         }
     }
 }

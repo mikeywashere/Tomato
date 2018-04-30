@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Tomato.Configuration\Tomato.Settings.csproj" />
     <ProjectReference Include="..\Tomato.Process\Tomato.Process.csproj" />
   </ItemGroup>
 

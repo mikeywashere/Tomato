@@ -3,17 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato", "Tomato\Tomato.csproj", "{02D85AA7-FD5F-428E-8649-547189856F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato", "Tomato\Tomato.csproj", "{02D85AA7-FD5F-428E-8649-547189856F97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato.Settings", "..\Tomato.Configuration\Tomato.Settings.csproj", "{8B2BDAC4-1563-44E2-B831-BEB491665BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato.Settings", "..\Tomato.Configuration\Tomato.Settings.csproj", "{8B2BDAC4-1563-44E2-B831-BEB491665BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato.Process", "Tomato.Process\Tomato.Process.csproj", "{D91C83F9-EE83-4031-88E4-A2BCC25ABEDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato.Process", "Tomato.Process\Tomato.Process.csproj", "{D91C83F9-EE83-4031-88E4-A2BCC25ABEDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato.Process.Test", "Tomato.Process.Test\Tomato.Process.Test.csproj", "{3B1EBDA9-AE2D-4157-B1EE-34E3F9381F9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato.Process.Test", "Tomato.Process.Test\Tomato.Process.Test.csproj", "{3B1EBDA9-AE2D-4157-B1EE-34E3F9381F9D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6F5C9C67-F310-42DD-8736-3D5015DC1092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato.Test", "Tomato.Test\Tomato.Test.csproj", "{1B40CEA3-E031-4008-AC98-C80697EEBF03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato.Test", "Tomato.Test\Tomato.Test.csproj", "{1B40CEA3-E031-4008-AC98-C80697EEBF03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato.CommandLine", "Tomato.Console\Tomato.CommandLine.csproj", "{EC18D27B-99AE-491F-8E53-58D9B6918106}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Core", "Todo.Core\Todo.Core.csproj", "{D470BF58-31B5-4FBA-9A53-F303EDE9F301}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Core.Test", "Todo.Core.Test\Todo.Core.Test.csproj", "{BCD881CE-FD24-45E0-B857-824BCA9E281F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +47,18 @@ Global
 		{1B40CEA3-E031-4008-AC98-C80697EEBF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B40CEA3-E031-4008-AC98-C80697EEBF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B40CEA3-E031-4008-AC98-C80697EEBF03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC18D27B-99AE-491F-8E53-58D9B6918106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC18D27B-99AE-491F-8E53-58D9B6918106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC18D27B-99AE-491F-8E53-58D9B6918106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC18D27B-99AE-491F-8E53-58D9B6918106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D470BF58-31B5-4FBA-9A53-F303EDE9F301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D470BF58-31B5-4FBA-9A53-F303EDE9F301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D470BF58-31B5-4FBA-9A53-F303EDE9F301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D470BF58-31B5-4FBA-9A53-F303EDE9F301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD881CE-FD24-45E0-B857-824BCA9E281F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD881CE-FD24-45E0-B857-824BCA9E281F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD881CE-FD24-45E0-B857-824BCA9E281F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD881CE-FD24-45E0-B857-824BCA9E281F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +66,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3B1EBDA9-AE2D-4157-B1EE-34E3F9381F9D} = {6F5C9C67-F310-42DD-8736-3D5015DC1092}
 		{1B40CEA3-E031-4008-AC98-C80697EEBF03} = {6F5C9C67-F310-42DD-8736-3D5015DC1092}
+		{BCD881CE-FD24-45E0-B857-824BCA9E281F} = {6F5C9C67-F310-42DD-8736-3D5015DC1092}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {439DDD12-DA32-45A7-B218-060EC26A81DD}

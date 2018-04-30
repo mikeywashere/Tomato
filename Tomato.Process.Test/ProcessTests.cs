@@ -8,7 +8,7 @@ namespace Tomato.Test
     {
         public class DummyProcessStep : IProcessStep
         {
-            public event EventHandler<ProcessProgressArgs> Progress;
+            public event EventHandler<PercentageProgressArgs> Progress;
 
             public void Cancel()
             {
@@ -17,7 +17,8 @@ namespace Tomato.Test
 
             public void Run()
             {
-                throw new NotImplementedException();
+
+                Progress?.Invoke(this, new PercentageProgressArgs(0));
             }
         }
 
@@ -75,14 +76,34 @@ namespace Tomato.Test
         }
 
         [TestMethod]
-        public void Test_AddStep_Twice_then_Start_then_Step_Twice()
+        public void Test_AddStep_Twice_then_Start_then_Step_Twice_with_RotateToStartWhenDone_true()
         {
             var dummyOne = new DummyProcessStep();
+            var dummyTwo = new DummyProcessStep();
             var process = new Process();
+            process.RotateToStartWhenDone = true;
             process.AddStep(dummyOne);
+            process.AddStep(dummyTwo);
             process.Start();
+            process.Step();
+            process.Step();
             var current = process.Current();
             Assert.AreEqual(current, dummyOne);
+        }
+
+        [TestMethod]
+        public void Test_AddStep_Twice_then_Start_then_Step_Twice_with_RotateToStartWhenDone_false()
+        {
+            var dummyOne = new DummyProcessStep();
+            var dummyTwo = new DummyProcessStep();
+            var process = new Process();
+            process.RotateToStartWhenDone = false;
+            process.AddStep(dummyOne);
+            process.AddStep(dummyTwo);
+            process.Start();
+            process.Step();
+            process.Step();
+            Assert.IsNull(process.Current());
         }
     }
 }
