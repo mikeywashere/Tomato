@@ -29,6 +29,19 @@ namespace Todo.Core.Test
         }
 
         [TestMethod]
+        public void TodoList_Add_two_items_Remove_two_items()
+        {
+            var list = new TodoItemSortedList();
+            var todoOne = new TodoItem("Test 1");
+            var todoTwo = new TodoItem("Test 2");
+            list.Add(todoOne);
+            list.Add(todoTwo);
+            list.Remove(todoOne);
+            list.Remove(todoTwo);
+            Assert.AreEqual(list.Count, 0);
+        }
+
+        [TestMethod]
         public void TodoList_Add_one_item_Insert_second_item_before_first()
         {
             var list = new TodoItemSortedList();

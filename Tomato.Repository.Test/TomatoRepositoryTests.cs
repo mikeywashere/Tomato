@@ -8,14 +8,12 @@ namespace Tomato.Repository.Test
     public class TomatoRepositoryTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void CanPutAndGet()
         {
-            //InMemoryRepository<Guid, Pomodoro> memory = new InMemoryRepository<Guid, Pomodoro>();
-            //TomatoRepository repository = new TomatoRepository(memory);
-            //Guid key = Guid.NewGuid();
-            //PropertyRepository
-            //Pomodoro pomodoro = new Pomodoro()
-            //repository.Put(key, )
+            InMemoryRepository<Guid, string> memory = new InMemoryRepository<Guid, string>();
+            Guid key = Guid.NewGuid();
+            memory.Put(key, "item");
+            Assert.IsNotNull(memory.Get(key));
         }
     }
 }

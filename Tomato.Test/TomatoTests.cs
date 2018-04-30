@@ -13,13 +13,13 @@ namespace Tomato.Test
         private int EventFiredCounter;
 
         [TestMethod]
-        public void WaitTimeStep_at_least_five_events_fired_in_five_seconds()
+        public void WaitTimeStep_between_four_events_and_six_events_fired_in_five_seconds()
         {
             var waitTimeStep = new WaitTimeStep(TimeSpan.FromSeconds(5));
             EventFiredCounter = 0;
             waitTimeStep.Progress += WaitTimeStep_Progress;
             waitTimeStep.Run();
-            Assert.AreEqual(EventFiredCounter, 5);
+            Assert.IsTrue(EventFiredCounter >= 4 && EventFiredCounter <= 6);
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace Tomato.Test
             var stopWatch = Stopwatch.StartNew();
             waitTimeStep.Run();
             stopWatch.Stop();
-            Assert.IsTrue(stopWatch.ElapsedMilliseconds > 6000);
+            Assert.IsTrue(stopWatch.ElapsedMilliseconds > 5999);
         }
 
         [TestMethod]
