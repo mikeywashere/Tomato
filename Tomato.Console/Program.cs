@@ -5,6 +5,9 @@ using Tomato.Repository;
 
 namespace Tomato.CommandLine
 {
+    /// <summary>
+    /// Tomato console app
+    /// </summary>
     class Program
     {
         static IPropertyRepository propertyStore = new PropertyRepository();

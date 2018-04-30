@@ -2,6 +2,10 @@
 
 namespace Todo.Core
 {
+    /// <summary>
+    /// TodoItem
+    /// A simple data container
+    /// </summary>
     [DebuggerDisplay("{Description}")]
     public class TodoItem : ITodoItem
     {

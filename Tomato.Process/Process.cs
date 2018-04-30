@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 namespace Tomato
 {
+    /// <summary>
+    /// A Process is a set of IProcessSteps
+    /// It progresses from step to step until done/complete
+    /// If RotateToStartWhenDone = true then it automatically wraps around infinitely.
+    /// If StartNextStepAutomatically is true then the process is atomatic.
+    /// </summary>
     public class Process : IProcess
     {
         private List<IProcessStep> steps = new List<IProcessStep>();

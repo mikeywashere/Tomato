@@ -1,14 +1,13 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Michael R. Schmidt" file="-">
-//   Copyright Michael R. Schmidt 2017
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Todo.Core
 {
+    /// <summary>
+    /// TodoItemSortedList
+    /// Keeps TodoItems in simple order
+    /// </summary>
     public class TodoItemSortedList : IList<TodoItem>
     {
         private SortedList<int, TodoItem> sortedList = new SortedList<int, TodoItem>();

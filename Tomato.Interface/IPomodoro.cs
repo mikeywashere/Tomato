@@ -7,6 +7,7 @@ namespace Tomato.Interface
         event EventHandler<PercentageProgressArgs> Progress;
 
         IPomodoroProgress Current();
+
         void Run();
     }
 }

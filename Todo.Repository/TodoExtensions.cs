@@ -1,17 +1,15 @@
-﻿using System.Linq;
+﻿using System.IO;
 using Todo.Core;
-using System.IO;
 
 namespace Todo.Extensions
 {
     public static class TodoExtensions
     {
-        public static void SaveToFile(this TodoItemSortedList list, string filename)
-        {
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(list);
-            File.WriteAllText(filename, json);
-        }
-
+        /// <summary>
+        /// Load a TodoItemSortedList from a file
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="filename"></param>
         public static void LoadFromFile(this TodoItemSortedList list, string filename)
         {
             string json = File.ReadAllText(filename);
@@ -21,6 +19,17 @@ namespace Todo.Extensions
             {
                 list.Add(item);
             }
+        }
+
+        /// <summary>
+        /// Save a TodoItemSortedList to a file
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="filename"></param>
+        public static void SaveToFile(this TodoItemSortedList list, string filename)
+        {
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(list);
+            File.WriteAllText(filename, json);
         }
     }
 }

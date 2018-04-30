@@ -8,6 +8,8 @@ namespace Tomato.Test
     {
         public class DummyProcessStep : IProcessStep
         {
+            public Guid Id => throw new NotImplementedException();
+
             public event EventHandler<PercentageProgressArgs> Progress;
 
             public void Cancel()

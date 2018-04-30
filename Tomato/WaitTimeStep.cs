@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Tomato.Core
 {
+    /// <summary>
+    /// WaitTimeStep is a IProcessStep to take time and report on said time
+    /// </summary>
     public class WaitTimeStep : IProcessStep
     {
         public WaitTimeStep(TimeSpan waitTime)

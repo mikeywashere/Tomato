@@ -6,6 +6,8 @@ namespace Tomato
 {
     public interface IProcessStep
     {
+        Guid Id { get; }
+
         event EventHandler<PercentageProgressArgs> Progress;
 
         void Run();

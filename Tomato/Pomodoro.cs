@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Dynamic;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Tomato.Interface;
 using Tomato.Repository;
 
 namespace Tomato.Core
 {
+    /// <summary>
+    /// Pomodoro class
+    /// A pomodoro is basically a workflow of timers
+    /// That is the strategy this class uses
+    /// </summary>
     public class Pomodoro : IPomodoro
     {
-        private Process pomodoroProcess = new Process();
-        private IPropertyRepository _properties;
-
-        public event EventHandler<PercentageProgressArgs> Progress;
+        private readonly Process _pomodoroProcess = new Process();
+        private readonly IPropertyRepository _properties;
 
         public Pomodoro(IPropertyRepository properties)
         {
@@ -25,31 +25,25 @@ namespace Tomato.Core
                 var waitTimeStep = new WaitTimeStep(settings.GetPomodoroTime);
                 waitTimeStep.Progress += ProgressHandler;
                 _properties.Put(waitTimeStep.Id, "Name", $"Work Time {index}");
-                pomodoroProcess.AddStep(waitTimeStep);
+                _pomodoroProcess.AddStep(waitTimeStep);
 
                 var restTimeStep = new WaitTimeStep(index == 4 ? settings.GetLongWaitTime : settings.GetSmallWaitTime);
                 restTimeStep.Progress += ProgressHandler;
                 _properties.Put(restTimeStep.Id, "Name", $"Rest Break {index}");
-                pomodoroProcess.AddStep(restTimeStep);
+                _pomodoroProcess.AddStep(restTimeStep);
             }
-            pomodoroProcess.RotateToStartWhenDone = false;
-            pomodoroProcess.StartNextStepAutomatically = true;
+            _pomodoroProcess.RotateToStartWhenDone = false;
+            _pomodoroProcess.StartNextStepAutomatically = true;
         }
 
-        private void ProgressHandler(object sender, PercentageProgressArgs e)
-        {
-            Progress?.Invoke(sender, e);
-        }
-
-        public void Run()
-        {
-            pomodoroProcess.Start();
-        }
+        /// <summary>
+        /// Progress Event
+        /// </summary>
+        public event EventHandler<PercentageProgressArgs> Progress;
 
         public IPomodoroProgress Current()
         {
-            var current = pomodoroProcess.Current() as WaitTimeStep;
-            if (current == null)
+            if (!(_pomodoroProcess.Current() is WaitTimeStep current))
                 return null;
 
             var pomodoroProgress = new PomodoroProgress()
@@ -59,6 +53,16 @@ namespace Tomato.Core
             };
 
             return pomodoroProgress;
+        }
+
+        public void Run()
+        {
+            _pomodoroProcess.Start();
+        }
+
+        private void ProgressHandler(object sender, PercentageProgressArgs e)
+        {
+            Progress?.Invoke(sender, e);
         }
     }
 }
