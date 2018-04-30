@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
@@ -9,7 +9,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Tomato.Configuration\Tomato.Settings.csproj" />
+    <ProjectReference Include="..\Tomato.Interface\Tomato.Interface.csproj" />
     <ProjectReference Include="..\Tomato.Process\Tomato.Process.csproj" />
+    <ProjectReference Include="..\TomatoRepository\Tomato.Repository.csproj" />
   </ItemGroup>
 
 </Project>

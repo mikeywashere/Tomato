@@ -1,0 +1,24 @@
+{
+  "name": "Tomato",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeywashere/Tomato.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikeywashere/Tomato/issues"
+  },
+  "homepage": "https://github.com/mikeywashere/Tomato#readme",
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.0-preview2-final"
+  },
+  "devDependencies": {}
+}

@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tomato\Tomato.csproj" />
+    <ProjectReference Include="..\Tomato\Tomato.Core.csproj" />
   </ItemGroup>
 
 </Project>

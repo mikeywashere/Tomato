@@ -1,48 +1,27 @@
-﻿using System;
-using System.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Michael R. Schmidt" file="-">
+//   Copyright Michael R. Schmidt 2017
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Todo.Core
 {
-    class TodoItemSortedList : IList<TodoItem>
+    public class TodoItemSortedList : IList<TodoItem>
     {
         private SortedList<int, TodoItem> sortedList = new SortedList<int, TodoItem>();
 
-        public TodoItem this[int index] { get => sortedList[index]; set => sortedList[index] = value; }
-
+        public bool IsReadOnly => false;
         public int Count => sortedList.Count;
 
-        public bool IsReadOnly => false;
+        public TodoItem this[int index] { get => sortedList[index + 1]; set => sortedList[index + 1] = value; }
 
         public void Add(TodoItem item)
         {
             var max = sortedList.Any() ? sortedList.Keys.Max() : 0;
             sortedList.Add(max + 1, item);
-        }
-
-        public void Insert(TodoItem item, int beforeIndex)
-        {
-            SortedList<int, TodoItem> newSortedList = new SortedList<int, TodoItem>();
-
-            foreach (var sortedItem in sortedList)
-            {
-                if (sortedItem.Key < beforeIndex)
-                {
-                    newSortedList.Add(sortedItem.Key, sortedItem.Value);
-                    continue;
-                }
-                if (sortedItem.Key == beforeIndex)
-                {
-                    newSortedList.Add(beforeIndex, item);
-                }
-                if (sortedItem.Key >= beforeIndex)
-                {
-                    newSortedList.Add(sortedItem.Key + 1, sortedItem.Value);
-                }
-
-            }
         }
 
         public void Clear()
@@ -70,42 +49,47 @@ namespace Todo.Core
 
         public int IndexOf(TodoItem item)
         {
-            throw new NotImplementedException();
+            var keys = from sortedItem in sortedList
+                       where sortedItem.Value == item
+                       select sortedItem.Key;
+            var key = keys?.FirstOrDefault();
+            if (key != null && key.HasValue)
+            {
+                return key.Value;
+            }
+            return -1;
+        }
+
+        public void Insert(TodoItem item, int beforeIndex)
+        {
+            Renumber(beforeIndex, item);
+        }
+
+        public void Insert(TodoItem item, TodoItem before)
+        {
+            Insert(item, IndexOf(before));
         }
 
         public void Insert(int index, TodoItem item)
         {
-            SortedList<int, TodoItem> newSortedList = new SortedList<int, TodoItem>();
+            Renumber(index, item);
+        }
 
-            foreach (var sortedItem in sortedList)
-            {
-                if (sortedItem.Key < beforeIndex)
-                {
-                    newSortedList.Add(sortedItem.Key, sortedItem.Value);
-                    continue;
-                }
-                if (sortedItem.Key == beforeIndex)
-                {
-                    newSortedList.Add(beforeIndex, item);
-                }
-                if (sortedItem.Key >= beforeIndex)
-                {
-                    newSortedList.Add(sortedItem.Key + 1, sortedItem.Value);
-                }
-            }
-
-            sortedList = newSortedList;
+        public void Move(TodoItem item, TodoItem before)
+        {
+            Remove(item);
+            Insert(item, IndexOf(before));
         }
 
         public bool Remove(TodoItem item)
         {
-            var keys = from sortedItem in sortedList
-                      where sortedItem.Value == item
-                      select sortedItem.Key;
-            var key = keys?.FirstOrDefault();
-            if (key != null && key.HasValue)
-                RemoveAt(key.Value);
+            var key = IndexOf(item);
+            if (key != -1 && sortedList.ContainsKey(key))
+            {
+                RemoveAt(key);
+                return true;
             }
+            return false;
         }
 
         public void RemoveAt(int index)
@@ -115,7 +99,40 @@ namespace Todo.Core
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            var items = from sortedItem in sortedList
+                        orderby sortedItem.Key
+                        select sortedItem.Value;
+            return items.GetEnumerator();
+        }
+
+        private void Renumber()
+        {
+            SortedList<int, TodoItem> newSortedList = new SortedList<int, TodoItem>();
+
+            var index = 1;
+            foreach (var sortedItem in sortedList)
+            {
+                newSortedList.Add(index++, sortedItem.Value);
+            }
+
+            sortedList = newSortedList;
+        }
+
+        private void Renumber(int insertAt, TodoItem todoItem)
+        {
+            SortedList<int, TodoItem> newSortedList = new SortedList<int, TodoItem>();
+
+            var index = 1;
+            foreach (var sortedItem in sortedList)
+            {
+                if (index == insertAt)
+                {
+                    newSortedList.Add(index++, todoItem);
+                }
+                newSortedList.Add(index++, sortedItem.Value);
+            }
+
+            sortedList = newSortedList;
         }
     }
 }

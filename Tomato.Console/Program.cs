@@ -1,10 +1,13 @@
 ﻿using System;
+using Tomato.Interface;
+using Tomato.Core;
+using Tomato.Repository;
 
 namespace Tomato.CommandLine
 {
     class Program
     {
-        static IPropertyStore propertyStore = new PropertyStore();
+        static IPropertyRepository propertyStore = new PropertyRepository();
         static int previousPercentage = -1;
 
         static void Main(string[] args)
@@ -18,7 +21,7 @@ namespace Tomato.CommandLine
         private static void Pom_Progress(object sender, PercentageProgressArgs e)
         {
             var waitTimeStep = sender as WaitTimeStep;
-            var Name = propertyStore.Get<string>(sender, "Name");
+            var Name = propertyStore.Get<string>(waitTimeStep.Id, "Name");
             var percentage = e.PercentageComplete;
             if (percentage != previousPercentage)
             {

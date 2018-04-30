@@ -1,4 +1,4 @@
-﻿namespace Tomato
+﻿namespace Tomato.Repository
 {
     public interface IPropertyStore
     {

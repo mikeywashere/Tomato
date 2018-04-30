@@ -3,13 +3,14 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Tomato.Core;
 
 namespace Tomato.Test
 {
     [TestClass]
     public class TomatoTests
     {
-        private int EventFiredCounter = 0;
+        private int EventFiredCounter;
 
         [TestMethod]
         public void WaitTimeStep_at_least_five_events_fired_in_five_seconds()
@@ -18,7 +19,7 @@ namespace Tomato.Test
             EventFiredCounter = 0;
             waitTimeStep.Progress += WaitTimeStep_Progress;
             waitTimeStep.Run();
-            Assert.IsTrue(EventFiredCounter < 5, "Less than 5 events were fired");
+            Assert.AreEqual(EventFiredCounter, 5);
         }
 
         [TestMethod]
