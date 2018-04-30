@@ -1,10 +1,5 @@
 ﻿using CommandLine;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.IO;
-using Todo.Core;
-using Todo.Extensions;
 
 namespace Todo.Command
 {
@@ -13,73 +8,46 @@ namespace Todo.Command
     /// </summary>
     internal class Program
     {
-        private static int HandleParseError(IEnumerable<Error> errors)
-        {
-            return -1;
-        }
-
         private static void Main(string[] args)
         {
-            CommandLine.Parser.Default.ParseArguments<Options>(args)
-                .WithParsed<Options>(opts => RunOptionsAndReturnExitCode(opts))
-                .WithNotParsed<Options>((errs) => HandleParseError(errs));
+            var returnCode = CommandLine.Parser.Default.ParseArguments<AddOptions, ListOptions, RemoveOptions, MoveOptions>(args)
+                .MapResult(
+                    (AddOptions opts) => RunAdd(opts),
+                    (ListOptions opts) => RunList(opts),
+                    (RemoveOptions opts) => RunRemove(opts),
+                    (MoveOptions opts) => RunMove(opts),
+                errs => 1);
 
-            Console.ReadKey();
+            Environment.Exit(returnCode);
         }
 
-        const string filename = "data.list";
-
-        private static int RunOptionsAndReturnExitCode(Options options)
+        private static void WriteToConsole(string message)
         {
-            var list = new TodoItemSortedList();
-            if (File.Exists(filename))
-                list.LoadFromFile(filename);
-
-            if (options.AddCommand)
-            {
-                if (string.IsNullOrEmpty(options.Text))
-                {
-                    Console.WriteLine("Gotta have some text to add!");
-                    return -1;
-                }
-                TodoItem todoItem = new TodoItem(options.Text);
-                list.Add(todoItem);
-                list.SaveToFile(filename);
-            }
-
-            if (options.FirstCommand)
-            {
-                Console.WriteLine(list.FirstOrDefault());
-            }
-
-            if (options.RemoveCommand)
-            {
-                if (string.IsNullOrEmpty(options.Text))
-                {
-                    Console.WriteLine("Gotta have some text to remove!");
-                    return -1;
-                }
-                TodoItem todoItem = new TodoItem(options.Text);
-                list.Remove(todoItem);
-                list.SaveToFile(filename);
-            }
-
-            return 0;
+            Console.WriteLine(message);
         }
 
-        private class Options
+        private static int RunAdd(AddOptions options)
         {
-            [Option('a', "add", HelpText = "Add an item")]
-            public bool AddCommand { get; set; }
+            TodoConsole console = new TodoConsole(WriteToConsole);
+            return console.Add(options);
+        }
 
-            [Option('f', "first", HelpText = "Show the first item")]
-            public bool FirstCommand { get; set; }
+        private static int RunList(ListOptions options)
+        {
+            TodoConsole console = new TodoConsole(WriteToConsole);
+            return console.List(options);
+        }
 
-            [Option('r', "remove", HelpText = "Remove an item")]
-            public bool RemoveCommand { get; set; }
+        private static int RunRemove(RemoveOptions options)
+        {
+            TodoConsole console = new TodoConsole(WriteToConsole);
+            return console.Remove(options);
+        }
 
-            [Option('t', "text", HelpText = "Text of the item")]
-            public string Text { get; set; }
+        private static int RunMove(MoveOptions options)
+        {
+            TodoConsole console = new TodoConsole(WriteToConsole);
+            return console.Move(options);
         }
     }
 }

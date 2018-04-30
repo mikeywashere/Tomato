@@ -7,6 +7,7 @@ namespace Todo.Core
     /// <summary>
     /// TodoItemSortedList
     /// Keeps TodoItems in simple order
+    /// Allows for reordering
     /// </summary>
     public class TodoItemSortedList : IList<TodoItem>
     {
@@ -49,7 +50,7 @@ namespace Todo.Core
         public int IndexOf(TodoItem item)
         {
             var keys = from sortedItem in sortedList
-                       where sortedItem.Value == item
+                       where sortedItem.Value.Description == item.Description
                        select sortedItem.Key;
             var key = keys?.FirstOrDefault();
             if (key != null && key.HasValue)
