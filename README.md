@@ -137,3 +137,9 @@ Writing tests is great, it allows you to know that the objects you are creating 
 Writing an app lets you know that they are usable and are providing the functionallity that a developer will need to use them in the real world.
 
 I wanted to create a web UI but since I went down this road of "DotNet Core 2.1" that didn't allow me to create the cheesy web UI I was planning.
+
+Typically I would have used more IoC - I definitely had the Interfaces necessary to use Autofac (I am failry familiar with that toolset) but I didn't see the necessity in this project. I think you can see that I was aiming for testable, autofacable would be next and if there was a pretty web UI it would have had to have happened.
+
+I prefer to commit early and often with very small commits. I didn't really do that here. Might have something to do with working mostly between 5pm and 5 am. :-)
+
+
