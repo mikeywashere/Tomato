@@ -23,13 +23,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Core.Test", "Todo.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato.Repository", "TomatoRepository\Tomato.Repository.csproj", "{ED3B3DD8-BE95-4990-93BC-D9401AF06754}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato.Repository.Test", "Tomato.Repository.Test\Tomato.Repository.Test.csproj", "{132338B3-396D-47BF-897C-C4C95FC60563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato.Repository.Test", "Tomato.Repository.Test\Tomato.Repository.Test.csproj", "{132338B3-396D-47BF-897C-C4C95FC60563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomato.Interface", "Tomato.Interface\Tomato.Interface.csproj", "{9EC8CA5F-78B7-4FB7-9736-A236FF2DCEF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomato.Interface", "Tomato.Interface\Tomato.Interface.csproj", "{9EC8CA5F-78B7-4FB7-9736-A236FF2DCEF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Console", "Todo.Console\Todo.Console.csproj", "{3416F6C7-64B8-4536-9B7E-C0816A203777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Console", "Todo.Console\Todo.Console.csproj", "{3416F6C7-64B8-4536-9B7E-C0816A203777}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Extensions", "Todo.Repository\Todo.Extensions.csproj", "{F3AF7386-73B5-42F5-8691-068E5BE51D8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Extensions", "Todo.Repository\Todo.Extensions.csproj", "{F3AF7386-73B5-42F5-8691-068E5BE51D8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2A9E965-B982-4FE4-B154-1AAE4ACE7301}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
