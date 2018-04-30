@@ -4,6 +4,9 @@ using System.Collections.Concurrent;
 
 namespace Tomato.Repository
 {
+    /// <summary>
+    /// PropertyRepository stores "properties" for a guid. I used guid because it was easy in this instance.
+    /// </summary>
     public class PropertyRepository : IPropertyRepository
     {
         private InMemoryRepository<Guid, ConcurrentDictionary<string, object>> propertyStore = new InMemoryRepository<Guid, ConcurrentDictionary<string, object>>();

@@ -7,6 +7,11 @@ using Tomato.Interface;
 
 namespace Tomato.Repository
 {
+    /// <summary>
+    /// A simple in memory store for items
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TVal"></typeparam>
     public class InMemoryRepository<TKey, TVal> : IRepository<TKey, TVal>
     {
         private ConcurrentDictionary<TKey, TVal> data = new ConcurrentDictionary<TKey, TVal>();

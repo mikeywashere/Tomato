@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tomato
 {
@@ -12,18 +12,12 @@ namespace Tomato
     /// </summary>
     public class Process : IProcess
     {
+        private IProcessStep current = null;
         private List<IProcessStep> steps = new List<IProcessStep>();
 
         public bool RotateToStartWhenDone { get; set; }
 
         public bool StartNextStepAutomatically { get; set; }
-
-        private IProcessStep current = null;
-
-        public bool OnLastStep()
-        {
-            return steps.Last() == current;
-        }
 
         public void AddStep(IProcessStep processStep)
         {
@@ -33,9 +27,37 @@ namespace Tomato
             steps.Add(processStep);
         }
 
+        public void Cancel()
+        {
+            steps.ForEach(step => step?.Cancel());
+            current = null;
+        }
+
         public IProcessStep Current()
         {
             return current;
+        }
+
+        public bool OnLastStep()
+        {
+            return steps.Last() == current;
+        }
+
+        public void Run()
+        {
+            while (current != null)
+            {
+                current?.Run();
+                if (!StartNextStepAutomatically)
+                    break;
+                Step();
+            }
+        }
+
+        public void Start()
+        {
+            current = steps.First();
+            Run();
         }
 
         public void Step()
@@ -53,29 +75,6 @@ namespace Tomato
                 return;
             }
 
-            current = null;
-        }
-
-        public void Start()
-        {
-            current = steps.First();
-            Run();
-        }
-
-        public void Run()
-        {
-            while (current != null)
-            {
-                current?.Run();
-                if (!StartNextStepAutomatically)
-                    break;
-                Step();
-            }
-        }
-
-        public void Cancel()
-        {
-            steps.ForEach(step => step?.Cancel());
             current = null;
         }
     }
